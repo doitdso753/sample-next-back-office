@@ -7,7 +7,9 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 function CategoryPaths({
-  categoryData,
+  depth,
+  pathsData,
+  handleClick
 }) {
   return (
     <Stack
@@ -15,21 +17,23 @@ function CategoryPaths({
       alignItems="center"
       divider={<KeyboardArrowRightRoundedIcon color="action"/>}
     >
-      <FormControl sx={{minWidth: 200}} size="small">
-        <InputLabel id={`category`}>{item.name}</InputLabel>
-        <Select
-          labelId="demo-select-small"
-          id="demo-select-small"
-          // value={age}
-          label="Age"
-          // onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-          <MenuItem value={40}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
+      {Array.from({ length: depth }, (v, i) => i)
+        .map((index) => (
+          <FormControl sx={{minWidth: 200}} size="small">
+            <InputLabel id={`category`}>1차</InputLabel>
+            <Select
+              labelId="demo-select-small"
+              id="demo-select-small"
+              // value={age}
+              label={`1차`}
+              // onChange={handleChange}
+            >
+              {pathsData[index]?.paths.map((item) => (
+                <MenuItem value={item?.value}>{item?.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ))}
     </Stack>
   );
 }

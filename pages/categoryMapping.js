@@ -11,6 +11,7 @@ import StandardCategoryPaths from "../components/CategoryMapping/StandardCategor
 import SearchInput from "../components/SearchInput";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
+import CategoryPaths from "../components/CategoryMapping/CategoryPaths";
 
 const standardType = [
   {name: '표준카테고리 검색', value: 'search'},
@@ -92,6 +93,14 @@ function CategoryMapping() {
               )}
             </TableCell>
           </TableRow>
+          {marketList.map((item) => (
+            <TableRow>
+              <TableCell component="th" sx={{width: 170}}>{item.name}</TableCell>
+              <TableCell>
+                <CategoryPaths depth={1} pathsData={[{ depth: 1, paths: [{ name: '빵', value: 12 }]}]} />
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

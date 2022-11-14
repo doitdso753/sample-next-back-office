@@ -6,7 +6,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 
-function StandardCategoryPaths({ depth, pathsData }) {
+function StandardCategoryPaths({
+  depth,
+  pathsData,
+  handleClick,
+}) {
   return (
     <Stack
       direction="row"
