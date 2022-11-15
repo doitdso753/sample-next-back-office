@@ -3,8 +3,15 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-function MarketListSelect({ marketList }) {
+function MarketListSelect({
+  marketList,
+  handleCheck,
+}) {
   const [checkedList, setCheckedList] = useState([]);
+
+  useEffect(() => {
+    handleCheck(checkedList);
+  }, [checkedList])
 
   const handleCheckChange = (e) => {
     let prevCheckedList = checkedList;
