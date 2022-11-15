@@ -8,10 +8,15 @@ import TableContainer from "@mui/material/TableContainer";
 import Typography from "@mui/material/Typography";
 import MarketListSelect from "../components/MarketListSelect";
 import StandardCategoryPaths from "../components/CategoryMapping/StandardCategoryPaths";
-import SearchInput from "../components/SearchInput";
+import SearchInput from "../components/SearchInputWithSelect";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
 import CategoryPaths from "../components/CategoryMapping/CategoryPaths";
+
+const searchData = [{
+  name: 'a>b>c',
+  value: 947230,
+}]
 
 const standardType = [
   {name: '표준카테고리 검색', value: 'search'},
@@ -27,6 +32,7 @@ const marketList = [
 ]
 
 function CategoryMapping() {
+  const [marketSelected, setMarketSelected] = useState([]);
   const [standardTypeChecked, setStandardTypeChecked] = useState(standardType[0].value);
   const [standardSearch, setStandardSearch] = useState('');
   const [standardSearchResult, setStandardSearchResult] = useState([]);
@@ -54,7 +60,14 @@ function CategoryMapping() {
         <TableBody>
           <TableRow>
             <TableCell component="th" sx={{width: 170}}>마켓선택</TableCell>
-            <TableCell><MarketListSelect marketList={marketList}/></TableCell>
+            <TableCell>
+              <MarketListSelect
+                marketList={marketList}
+                handleCheck={(checkedList) => {
+                  setMarketSelected(marketList.filter((item) => checkedList.includes(item.marketCode)));
+                  // TODO: 초기 데이터 세팅, 초기 데이터 없을 시 DB 1차 카테고리 가져오기
+                }}/>
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell component="th" sx={{width: 170}}>표준 카테고리</TableCell>
@@ -81,8 +94,11 @@ function CategoryMapping() {
               {standardTypeChecked === 'search' && (
                 <SearchInput
                   width={500}
-                  value={standardSearch}
-                  onChange={(e) => setStandardSearch(e.target.value)}
+                  searchData={standardSearchResult}
+                  handleSearchData={setStandardSearchResult}
+                  searchInput={standardSearch}
+                  handleSearchInput={(e) => setStandardSearch(e.target.value)}
+                  // onChange={(e) => setStandardSearch(e.target.value)}
                 />
               )}
               {standardTypeChecked === 'select' && (
@@ -93,7 +109,7 @@ function CategoryMapping() {
               )}
             </TableCell>
           </TableRow>
-          {marketList.map((item) => (
+          {marketSelected.map((item) => (
             <TableRow>
               <TableCell component="th" sx={{width: 170}}>{item.name}</TableCell>
               <TableCell>

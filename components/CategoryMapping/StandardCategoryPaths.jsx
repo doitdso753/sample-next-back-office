@@ -20,6 +20,7 @@ function StandardCategoryPaths({
       {Array.from({ length: depth }, (v, i) => i)
         .map((index) => (
         <List
+          key={index}
           sx={{
             display: 'inline-block',
             width: '100%',

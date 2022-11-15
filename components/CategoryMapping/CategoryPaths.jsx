@@ -23,10 +23,10 @@ function CategoryPaths({
             <InputLabel id={`category`}>1차</InputLabel>
             <Select
               labelId="demo-select-small"
-              id="demo-select-small"
-              // value={age}
-              label={`1차`}
-              // onChange={handleChange}
+              id={`${index + 1}_paths`}
+              label={`${index + 1}차`}
+              value={(index + 1) || 1}
+              onChange={handleClick}
             >
               {pathsData[index]?.paths.map((item) => (
                 <MenuItem value={item?.value}>{item?.name}</MenuItem>
